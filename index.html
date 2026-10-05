@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon - Dupage County Communications</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0a0a0f;
+      color: #e0e0e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 640px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-bottom: 2rem;
+    }
+
+    .description {
+      margin: 2rem 0;
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    .links {
+      margin: 2rem 0;
+    }
+
+    .links h3 {
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.6;
+    }
+
+    .link-list {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .link-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: #1a1a22;
+      border-radius: 4px;
+      color: #888;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .link-list a:hover {
+      background: #2a2a33;
+      color: #fff;
+    }
+
+    .link-list svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .countdown {
+      margin: 2rem 0;
+      font-size: 0.85rem;
+      opacity: 0.5;
+    }
+
+    .contact {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #2a2a33;
+      width: 100%;
+    }
+
+    .contact p {
+      margin: 0.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/images/department-logo.svg" alt="Department Logo" class="logo">
+
+    <h1>Website Coming Soon</h1>
+    <p class="subtitle">Phase 0: Launch</p>
+
+    <p class="description" id="department-desc">
+      Department description will be inserted here.
+    </p>
+
+    <div class="links">
+      <h3>Social & Discord</h3>
+      <div class="link-list" id="social-links">
+        <!-- Links will be injected from socials.json -->
+      </div>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <!-- Countdown will be shown/hidden based on config -->
+    </div>
+
+    <div class="contact">
+      <p><strong>Contact:</strong> <span id="contact-email">contact@dupagecounty.gov</span></p>
+      <p><strong>Phone:</strong> <span id="contact-phone">(331) 555-1234</span></p>
+    </div>
+  </div>
+
+  <script type="module">
+    import socials from './assets/data/socials.json' with { type: 'json' };
+
+    const descEl = document.getElementById('department-desc');
+    descEl.textContent = socials.description || 'Department description will be provided.';
+
+    const socialLinksEl = document.getElementById('social-links');
+    socialLinksEl.innerHTML = socials.links
+      .map(link => {
+        const icon = link.icon.replace('.svg', '');
+        return `<a href="${link.url}" target="_blank" aria-label="${link.label}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="${icon}"/>
+          </svg>
+          ${link.label}
+        </a>`;
+      })
+      .join('');
+
+    const countdownEl = document.getElementById('countdown');
+    if (socials.countdown.enabled) {
+      const targetDate = new Date(socials.countdown.targetDate).getTime();
+      const countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          countdownEl.innerHTML = '<strong>Launching now!</strong>';
+          clearInterval(countdownInterval);
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m until launch`;
+      }, 60000);
+    }
+  </script>
+</body>
+</html>
