@@ -1,19 +1,14 @@
 {
-  "description": "Short department description goes here. This will be replaced with the actual department description.",
+  "description": "WIP",
   "links": [
     {
       "label": "Discord",
-      "url": "https://discord.gg/your-invite",
+      "url": "https://discord.gg/nfrp24",
       "icon": "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.54-7.54l-3 3zM14 13a5 5 0 0 1 7.54.54l3-3a5 5 0 0 1-7.54-7.54l-3 3z"
     },
-    {
-      "label": "Twitter",
-      "url": "https://twitter.com/dupagecounty",
-      "icon": "M21 1v4h-2v-4a4.958 4.958 0 0 0-3.4-.838L9.5 9.7A5 5 0 0 0 4.197 6H3v4H1l5 4.5V15l4.5-3.5h2zM5.05 4.95a4.956 4.956 0 0 1 5.66 0l3.84 3.84a5.024 5.024 0 0 1 0 5.66l-3.84-3.84A4.959 4.959 0 0 1 5.05 4.95zM12 5v14M19 1h-4v4h-2v-4h-4v4h-2V1H19zM8 1a3 3 0 0 0-3 3v4H4l5 4.5V15l4.5-3.5h-2V1H8z"
-    }
   ],
   "countdown": {
     "enabled": true,
-    "targetDate": "2026-10-15T00:00:00Z"
+    "targetDate": "2026-10-10T00:00:00Z"
   }
 }
